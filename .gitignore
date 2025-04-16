@@ -1,0 +1,15 @@
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.pyw
+*.pyz
+output
+*.nii.gz
+*.npy
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+M3D-LaMed-Llama-2-7B
