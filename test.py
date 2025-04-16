@@ -8,7 +8,7 @@ import os
 device = torch.device('cuda') # 'cpu', 'cuda'
 dtype = torch.bfloat16 # or bfloat16, float16, float32
 
-model_name_or_path = '/home/vankhoa@median.cad/code/public/M3D/M3D-LaMed-Llama-2-7B'
+model_name_or_path = 'GoodBaiBai88/M3D-LaMed-Llama-2-7B'
 proj_out_num = 256
 
 # Prepare your 3D medical image:
@@ -49,21 +49,16 @@ generation, seg_logit = model.generate(image_pt, input_id, seg_enable=True, max_
 
 generated_texts = tokenizer.batch_decode(generation, skip_special_tokens=True)
 seg_mask = (torch.sigmoid(seg_logit) > 0.5) * 1.0
+seg_mask = seg_mask.squeeze(0).cpu().numpy()
+print(seg_mask.shape, image_np.shape)
+print(np.unique(seg_mask))
 
 print('question', question)
 print('generated_texts', generated_texts[0])
 
-# Create output directory if it doesn't exist
-os.makedirs('output', exist_ok=True)
-
-# Save original image
-image = sikt.GetImageFromArray(image_np)
-sikt.WriteImage(image, 'output/original_image.nii.gz')
-
-# Save segmentation mask
-seg = sikt.GetImageFromArray(seg_mask.cpu().numpy()[0])
-sikt.WriteImage(seg, 'output/segmentation_mask.nii.gz')
-
-print("Images have been saved to the 'output' directory:")
-print("- Original image: output/original_image.nii.gz")
-print("- Segmentation mask: output/segmentation_mask.nii.gz")
+image = sikt.GetImageFromArray(image_np[0])
+sikt.WriteImage(image, './Data/data/example_03.nii.gz')
+# ssv.display(image)
+seg = sikt.GetImageFromArray(seg_mask[0])
+# ssv.display(seg)
+sikt.WriteImage(seg, './Data/data/example_03_seg.nii.gz')

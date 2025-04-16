@@ -7,16 +7,20 @@ from torch.utils.data import DataLoader
 import argparse
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from tqdm import tqdm
-from Bench.dataset.multi_dataset import CapDataset
+
 # If the model is not from huggingface but local, please uncomment and import the model architecture.
 # from LaMed.src.model.language_model import *
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append('/mnt/home/admvkl@median.cad/code/public/M3D')
+from Bench.dataset.multi_dataset import CapDataset
 import evaluate
 
-accuracy = evaluate.load("accuracy")
-bleu = evaluate.load("bleu")
-bertscore = evaluate.load("bertscore")
-meteor = evaluate.load("meteor")
-rouge = evaluate.load("rouge")
+accuracy = evaluate.load("/mnt/home/admvkl@median.cad/code/public/M3D/evaluate/metrics/accuracy/accuracy.py")
+bleu = evaluate.load("/mnt/home/admvkl@median.cad/code/public/M3D/evaluate/metrics/bleu/bleu.py")
+bertscore = evaluate.load("/mnt/home/admvkl@median.cad/code/public/M3D/evaluate/metrics/bertscore/bertscore.py")
+meteor = evaluate.load("/mnt/home/admvkl@median.cad/code/public/M3D/evaluate/metrics/meteor/meteor.py")
+rouge = evaluate.load("/mnt/home/admvkl@median.cad/code/public/M3D/evaluate/metrics/rouge/rouge.py")
 
 
 def seed_everything(seed):

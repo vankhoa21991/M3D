@@ -13,3 +13,5 @@ output
 *.gif
 *.bmp
 M3D-LaMed-Llama-2-7B
+output
+evaluate

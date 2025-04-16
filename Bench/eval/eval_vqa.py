@@ -7,6 +7,9 @@ from torch.utils.data import DataLoader
 import argparse
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from tqdm import tqdm
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append('/mnt/home/admvkl@median.cad/code/public/M3D')
 from Bench.dataset.multi_dataset import VQADataset
 from Bench.eval.metrics import compute_exact_match, qa_f1_score
 # If the model is not from huggingface but local, please uncomment and import the model architecture.

@@ -5,6 +5,9 @@ from torch.utils.data import DataLoader
 import argparse
 from transformers import AutoTokenizer
 from tqdm import tqdm
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append('/mnt/home/admvkl@median.cad/code/public/M3D')
 from Bench.dataset.multi_dataset import ITRDataset
 from LaMed.src.model.CLIP import *
 
@@ -60,7 +63,7 @@ def main():
     )
     model = model.to(device=device)
 
-    test_dataset = ITRDataset(args, tokenizer=tokenizer, mode='hard_test') # test, test1k, test500, test100
+    test_dataset = ITRDataset(args, tokenizer=tokenizer, mode='test') # test, test1k, test500, test100
 
     test_dataloader = DataLoader(
             test_dataset,
